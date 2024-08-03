@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'category',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -70,6 +72,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myShop.wsgi.application'
+
+AUTH_USER_MODEL = 'accounts.Account'
 
 
 # Database
@@ -123,3 +127,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = Path(BASE_DIR).joinpath('media')
