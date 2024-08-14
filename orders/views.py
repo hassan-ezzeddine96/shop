@@ -125,8 +125,7 @@ def place_order(request,total=0,quantity=0):
             }
             return render(request, 'orders/payments.html',context)
         else:
-            return redirect('checkout')
-        
+            return redirect('checkout')  
 def order_complete(request):
     order_number = request.GET.get('order_number')
     transID = request.GET.get('payment_id')
