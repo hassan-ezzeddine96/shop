@@ -33,16 +33,18 @@
   <script>
     $(document).ready(function() {
       $("#size").click(function(e) {
-        //document.getElementById('size').style.visibility = 'visible';
-        $("#before_color").hide();
-        $("#color").show();
+        $("#color").click(function(e) {
+          $("#before_add").hide();
+          $("#add_to_cart").removeAttr("disabled");
+        });
       });
     });
     $(document).ready(function() {
       $("#color").click(function(e) {
-        //document.getElementById('add_to_cart').style.visibility = 'visible';
-        $("#before_add").hide();
-        $("#add_to_cart").removeAttr("disabled");
+        $("#size").click(function(e) {
+          $("#before_add").hide();
+          $("#add_to_cart").removeAttr("disabled");
+        });
       });
     });
   </script>

@@ -28,7 +28,7 @@ def add_cart(request, product_id):
                     product_variation.append(variation)
                 except:
                     pass
-
+        product_variation_opposit = list(reversed(product_variation))
         is_cart_item_exists = CartItem.objects.filter(product=product,user=current_user).exists()
         if is_cart_item_exists:
             cart_item = CartItem.objects.filter(product = product, user=current_user)
@@ -38,8 +38,15 @@ def add_cart(request, product_id):
                 existing_variation = item.variations.all()
                 ex_var_list.append(list(existing_variation))
                 id.append(item.id)
-            if product_variation in ex_var_list:
+            if product_variation in ex_var_list :
                 index = ex_var_list.index(product_variation)
+                item_id = id[index]
+                item = CartItem.objects.get(product=product,id=item_id)
+                item.quantity += 1
+                item.save()
+            # if entered variation is both way size color or color size..
+            elif product_variation_opposit in ex_var_list :
+                index = ex_var_list.index(product_variation_opposit)
                 item_id = id[index]
                 item = CartItem.objects.get(product=product,id=item_id)
                 item.quantity += 1
