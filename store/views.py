@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from .models import Product,ReviewRating,ProductGallery
+from .models import Product,ReviewRating,ProductGallery,Variation
 from django.contrib import messages
 from category.models import Category
 from carts.models import Cart,CartItem
@@ -10,9 +10,7 @@ from .forms import ReviewForm
 from orders.models import OrderProduct
 
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-
-# Create your views here.
-
+    
 def store(request, category_slug=None):
     categories = None
     products = None
@@ -52,7 +50,6 @@ def product_detail(request,category_slug, product_slug):
         orderproduct = None
     # Get the reviews
     reviews = ReviewRating.objects.filter(product_id = single_product.id, status=True)
-    
     #Get the Product Gallery
     product_gallery = ProductGallery.objects.filter(product_id=single_product.id)
     

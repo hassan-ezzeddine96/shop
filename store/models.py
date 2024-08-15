@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 from category.models import Category
 from django.urls import reverse
@@ -13,7 +14,7 @@ class Product(models.Model):
     price = models.IntegerField()
     old_price = models.IntegerField(null=True, blank=True)
     images = models.ImageField(upload_to='photos/products')
-    stock = models.IntegerField()
+    stock = models.IntegerField(default=0)
     is_available = models.BooleanField(default=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -52,13 +53,19 @@ class Variation(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
     variation_category = models.CharField(max_length=100,choices=Variation_category_choice)
     variation_value = models.CharField(max_length=100)
+    variation_stock = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now=True)
 
     objects = VariationManager()
-
+    
     def __str__(self):
         return self.variation_value
+    def save(self, *args, **kwargs):
+        product = Product.objects.get(id = self.product.id)
+        product.stock += self.variation_stock
+        product.save()
+        super().save(*args, **kwargs)  # Call the "real" save() method.
     
 class ReviewRating(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)

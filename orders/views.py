@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from carts.models import CartItem
 from .forms import OrderForm
 from .models import Order,OrderProduct,Payment
-from store.models import Product
+from store.models import Product,Variation
 import datetime
 import json
 #email
@@ -49,6 +49,11 @@ def payments(request):
         product = Product.objects.get(id = item.product_id)
         product.stock -= item.quantity
         product.save()
+    # reduce the quantity of sold products variation
+        for i in product_variation:
+            variation = Variation.objects.get(product_id = item.product_id, variation_value=i)
+            variation.variation_stock -= item.quantity
+            variation.save()
     
     # Clear the cart
     CartItem.objects.filter(user = request.user).delete()

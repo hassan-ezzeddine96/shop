@@ -54,8 +54,10 @@
             <h6>Choose Color</h6>
             <div class="btn-group btn-group-sm btn-group-toggle" id="color" data-toggle="buttons">
               {% for i in single_product.variation_set.colors %}
-              <label class="btn btn-light">
-                <input type="radio"  name="color" value="{{i.variation_value | lower}}"> {{i.variation_value | capfirst}}
+              <label class="btn btn-light" {% if i.variation_stock < 1 %} style="color: gray;" {% endif %} style="color: blue;">
+                <input type="radio"  name="color" value="{{i.variation_value | lower}}"
+                {% if i.variation_stock < 1 %} disabled {% endif %}
+                > {{i.variation_value | capfirst}}
               </label>
               {% endfor %}
             </div>        
@@ -66,8 +68,10 @@
                 <h6>Select Size</h6>
                 <div class="btn-group btn-group-sm btn-group-toggle"  id="size"  data-toggle="buttons">
                   {% for i in single_product.variation_set.sizes %}
-                  <label class="btn btn-light">
-                    <input type="radio"  name="size" value="{{i.variation_value | lower}}"> {{i.variation_value | capfirst}}
+                  <label class="btn btn-light" {% if i.variation_stock < 1 %} style="color: gray;"  {% endif %} style="color: blue;">
+                    <input type="radio"  name="size" value="{{i.variation_value | lower}}"
+                    {% if i.variation_stock < 1 %} disabled {% endif %}
+                    > {{i.variation_value | capfirst}}
                   </label>
                   {% endfor %}
                 </div>        
