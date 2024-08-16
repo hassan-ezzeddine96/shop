@@ -9,7 +9,14 @@ eCommerce app for clothes and lot of interresting stuff.
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=Myshop+Screenshot+Here)
+Home Screen
+![Home](https://github.com/hassan-ezzeddine96/shop/blob/master/static/images/screen_shots/home.png?raw=true)
+
+Product Details
+![Product](https://github.com/hassan-ezzeddine96/shop/blob/master/static/images/screen_shots/product.png?raw=true)
+
+Admin Side
+![Admin](https://github.com/hassan-ezzeddine96/shop/blob/master/static/images/screen_shots/admin-side.png?raw=true)
 
 
 ## Demo
