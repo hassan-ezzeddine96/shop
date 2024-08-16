@@ -46,15 +46,27 @@ Soon ..
 - Separated requirements files
 
 
+
 ## Run Locally
 
 First clone the repository from Github and switch to the new directory
 
 ```bash
-  git clone git@github.com/USERNAME/{{ project_name }}.git
+  git clone https://github.com/hassan-ezzeddine96/shop.git
   cd {{ project_name }}
 ```
-Activate the virtualenv for your project.
+Create a Virtual inviroment for your Project and Activate it:
+
+Step1: create virtual environment
+
+```bash
+  python -m venv {{env-name}}
+```
+Step2: Then activate that environment
+
+```bash
+  {{env-name}}\Scripts\activate
+```
 
 Install project dependencies:
 
@@ -73,6 +85,7 @@ Start the server
 ```bash
   python manage.py runserver
 ```
+
 
 
 # Hi, I'm Hassan Ezzeddine! 👋
