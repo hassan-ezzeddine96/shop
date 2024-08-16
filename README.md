@@ -15,8 +15,8 @@ Home Screen
 Product Details
 ![Product](https://github.com/hassan-ezzeddine96/shop/blob/master/static/images/screen_shots/product.png?raw=true)
 
-Admin Side
-![Admin](https://github.com/hassan-ezzeddine96/shop/blob/master/static/images/screen_shots/admin-side.png?raw=true)
+Order Invoice
+![Invoice](https://github.com/hassan-ezzeddine96/shop/blob/master/static/images/screen_shots/invoice.png?raw=true)
 
 
 ## Demo
