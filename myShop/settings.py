@@ -14,20 +14,6 @@ from pathlib import Path
 from decouple import config
 import os
 
-import subprocess
-import ast
-
-
-def get_environ_vars():
-    completed_process = subprocess.run(
-        ['/opt/elasticbeanstalk/bin/get-config', 'environment'],
-        stdout=subprocess.PIPE,
-        text=True,
-        check=True
-    )
-
-    return ast.literal_eval(completed_process.stdout)
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 TEMPLATES_DIR = Path(BASE_DIR).joinpath('templates')
@@ -42,7 +28,7 @@ SECRET_KEY = "o)hm(z0^_4@#zg1f-o%t$cvukx0bun-13g!l7u(pi!y5*p0t_+"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['myshop-env.eba-2c2g8sxc.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['myshop-env.eba-2c2g8sxc.us-west-2.elasticbeanstalk.com','127.0.0.1']
 
 
 # Application definition
@@ -106,47 +92,25 @@ AUTH_USER_MODEL = 'accounts.Account'
 
 # Database Configuration
 
-# if 'RDS_DB_NAME' in os.environ:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql',
-#             'NAME': os.environ['RDS_DB_NAME'],
-#             'USER': os.environ['RDS_USERNAME'],
-#             'PASSWORD': os.environ['RDS_PASSWORD'],
-#             'HOST': os.environ['RDS_HOSTNAME'],
-#             'PORT': os.environ['RDS_PORT'],
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-if 'RDS_HOSTNAME' in os.environ:
+if 'RDS_DB_NAME' in os.environ:
     DATABASES = {
         'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['RDS_DB_NAME'],
-        'USER': os.environ['RDS_USERNAME'],
-        'PASSWORD': os.environ['RDS_PASSWORD'],
-        'HOST': os.environ['RDS_HOSTNAME'],
-        'PORT': os.environ['RDS_PORT'],
-     }
- }
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
+    }
 else:
-    env_vars = get_environ_vars()
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env_vars['RDS_DB_NAME'],
-        'USER': env_vars['RDS_USERNAME'],
-        'PASSWORD': env_vars['RDS_PASSWORD'],
-        'HOST': env_vars['RDS_HOSTNAME'],
-        'PORT': env_vars['RDS_PORT'],
-     }
- }
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
 
 
 
