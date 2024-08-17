@@ -16,7 +16,6 @@ from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 TEMPLATES_DIR = Path(BASE_DIR).joinpath('templates')
-STATIC_DIR = Path(BASE_DIR).joinpath("static")
 
 
 # Quick-start development settings - unsuitable for production
@@ -28,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['myshop-env.eba-2c2g8sxc.us-west-2.elasticbeanstalk.com']
 
 
 # Application definition
@@ -135,9 +134,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = Path(BASE_DIR).joinpath("static")
 STATICFILES_DIRS = [
-    STATIC_DIR,
+    'myShop/static',
 ]
+
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = Path(BASE_DIR).joinpath('media')
