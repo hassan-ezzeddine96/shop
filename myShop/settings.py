@@ -37,10 +37,10 @@ TEMPLATES_DIR = Path(BASE_DIR).joinpath('templates')
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = "o)hm(z0^_4@#zg1f-o%t$cvukx0bun-13g!l7u(pi!y5*p0t_+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 
 ALLOWED_HOSTS = ['myshop-env.eba-2c2g8sxc.us-west-2.elasticbeanstalk.com']
 
@@ -205,8 +205,8 @@ MESSAGE_TAGS = {
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
 
 # SMTP configuration
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT', cast=int)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "wissam.ezzeddine.work@gmail.com"
+EMAIL_HOST_PASSWORD = "dsgm rwuo mkle dnod"
+EMAIL_USE_TLS = True
