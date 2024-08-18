@@ -28,7 +28,7 @@ SECRET_KEY = "o)hm(z0^_4@#zg1f-o%t$cvukx0bun-13g!l7u(pi!y5*p0t_+"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['myshop-env.eba-2c2g8sxc.us-west-2.elasticbeanstalk.com','127.0.0.1','52.41.190.179']
+ALLOWED_HOSTS = ['myshop-env.eba-2c2g8sxc.us-west-2.elasticbeanstalk.com','127.0.0.1','52.41.190.179','172.31.12.253']
 
 
 # Application definition
