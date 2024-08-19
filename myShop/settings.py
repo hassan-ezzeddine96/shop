@@ -113,13 +113,6 @@ else:
         }
     }
 
-# DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-
 
 
 # Password validation
@@ -188,73 +181,7 @@ STORAGES = {
     },
 }
 
-# USE_S3 = os.getenv('USE_S3') == 'TRUE'
-# if USE_S3:
-#     # aws settings
-#     AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-#     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-#     AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-#     AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
-#     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-#     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400',}
-#     AWS_S3_FILE_OVERWRITE = False
-#     AWS_DEFAULT_ACL = 'public-read'
-#     AWS_LOCATION = 'static'
-#     # s3 static settings
-#     STATIC_LOCATION = 'static'
-#     PUBLIC_MEDIA_LOCATION = 'media'
-#     STORAGES = {
-#         "default": {
-#             "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-#         },
-#         "staticfiles": {
-#             "BACKEND": "storages.backends.s3boto3.S3StaticStorage"
-#         },
-#     }
-# else:
-#     STATIC_URL = 'static/'
-#     STATIC_ROOT = Path(BASE_DIR).joinpath("static")
-#     MEDIA_URL = '/media/'
-#     MEDIA_ROOT = Path(BASE_DIR).joinpath('media')
 
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-# STATIC_URL = '/static/'
-# STATIC_ROOT = Path(BASE_DIR).joinpath("static")
-# STATICFILES_DIRS = [
-#     'myShop/static',
-# ]
-# AWS S3 Static Files Configuration
-
-
-
-# # Set the static and media files locations
-# STATICFILES_LOCATION = 'static'
-# MEDIAFILES_LOCATION = 'media'
-
-
-# class StaticStorage(S3Boto3Storage):
-#     location = STATICFILES_LOCATION
-
-# class MediaStorage(S3Boto3Storage):
-#     location = MEDIAFILES_LOCATION
-#     file_overwrite = False
-    
-# # Configure static and media files storage
-
-# STATICFILES_STORAGE = 'myShop.settings.StaticStorage'
-# DEFAULT_FILE_STORAGE = 'myShop.settings.MediaStorage'
-
-# # Set static and media URLs
-# STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{STATICFILES_LOCATION}/'
-# MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{MEDIAFILES_LOCATION}/'
-
-
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = Path(BASE_DIR).joinpath('media')
 
 from django.contrib.messages import constants as messages
 
