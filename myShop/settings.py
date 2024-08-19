@@ -154,36 +154,70 @@ USE_L10N = True
 
 USE_TZ = True
 
-USE_S3 = os.getenv('USE_S3') == 'TRUE'
-if USE_S3:
-    # aws settings
-    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-    AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400',}
-    AWS_S3_FILE_OVERWRITE = False
-    AWS_DEFAULT_ACL = 'public-read'
-    AWS_LOCATION = 'static'
-    # s3 static settings
-    STATIC_LOCATION = 'static'
-    PUBLIC_MEDIA_LOCATION = 'media'
-    STORAGES = {
-        "default": {
-            "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
-        },
-        "staticfiles": {
-            "BACKEND": "storages.backends.s3boto3.S3StaticStorage"
-        },
-    }
-else:
-    STATIC_URL = 'static/'
-    STATIC_ROOT = Path(BASE_DIR).joinpath("static")
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = Path(BASE_DIR).joinpath('media')
 
+
+
+
+STATIC_URL = 'static/'
 STATICFILES_DIRS = ['myShop/static',]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = Path(BASE_DIR).joinpath('media')
+
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400',}
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = 'public-read'
+AWS_LOCATION = 'static'
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "location": "media",
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+        "OPTIONS": {
+            "location": "static",
+        },
+    },
+}
+
+# USE_S3 = os.getenv('USE_S3') == 'TRUE'
+# if USE_S3:
+#     # aws settings
+#     AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+#     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+#     AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+#     AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
+#     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+#     AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400',}
+#     AWS_S3_FILE_OVERWRITE = False
+#     AWS_DEFAULT_ACL = 'public-read'
+#     AWS_LOCATION = 'static'
+#     # s3 static settings
+#     STATIC_LOCATION = 'static'
+#     PUBLIC_MEDIA_LOCATION = 'media'
+#     STORAGES = {
+#         "default": {
+#             "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+#         },
+#         "staticfiles": {
+#             "BACKEND": "storages.backends.s3boto3.S3StaticStorage"
+#         },
+#     }
+# else:
+#     STATIC_URL = 'static/'
+#     STATIC_ROOT = Path(BASE_DIR).joinpath("static")
+#     MEDIA_URL = '/media/'
+#     MEDIA_ROOT = Path(BASE_DIR).joinpath('media')
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
