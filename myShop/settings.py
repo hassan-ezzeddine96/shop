@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 from decouple import config
 import os
+from storages.backends.s3boto3 import S3Boto3Storage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -26,7 +27,7 @@ TEMPLATES_DIR = Path(BASE_DIR).joinpath('templates')
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['myshop-env.eba-2c2g8sxc.us-west-2.elasticbeanstalk.com','127.0.0.1','52.41.190.179','172.31.12.253']
 
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'carts',
     'orders',
     'admin_honeypot',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -110,6 +112,7 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+
 # DATABASES = {
 #         'default': {
 #             'ENGINE': 'django.db.backends.sqlite3',
@@ -151,20 +154,73 @@ USE_L10N = True
 
 USE_TZ = True
 
+USE_S3 = os.getenv('USE_S3') == 'TRUE'
+if USE_S3:
+    # aws settings
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400',}
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_LOCATION = 'static'
+    # s3 static settings
+    STATIC_LOCATION = 'static'
+    PUBLIC_MEDIA_LOCATION = 'media'
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "storages.backends.s3boto3.S3StaticStorage"
+        },
+    }
+else:
+    STATIC_URL = 'static/'
+    STATIC_ROOT = Path(BASE_DIR).joinpath("static")
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = Path(BASE_DIR).joinpath('media')
+
+STATICFILES_DIRS = ['myShop/static',]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = Path(BASE_DIR).joinpath("static")
-STATICFILES_DIRS = [
-    'myShop/static',
-]
+# STATIC_URL = '/static/'
+# STATIC_ROOT = Path(BASE_DIR).joinpath("static")
+# STATICFILES_DIRS = [
+#     'myShop/static',
+# ]
+# AWS S3 Static Files Configuration
 
 
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = Path(BASE_DIR).joinpath('media')
+# # Set the static and media files locations
+# STATICFILES_LOCATION = 'static'
+# MEDIAFILES_LOCATION = 'media'
+
+
+# class StaticStorage(S3Boto3Storage):
+#     location = STATICFILES_LOCATION
+
+# class MediaStorage(S3Boto3Storage):
+#     location = MEDIAFILES_LOCATION
+#     file_overwrite = False
+    
+# # Configure static and media files storage
+
+# STATICFILES_STORAGE = 'myShop.settings.StaticStorage'
+# DEFAULT_FILE_STORAGE = 'myShop.settings.MediaStorage'
+
+# # Set static and media URLs
+# STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{STATICFILES_LOCATION}/'
+# MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{MEDIAFILES_LOCATION}/'
+
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = Path(BASE_DIR).joinpath('media')
 
 from django.contrib.messages import constants as messages
 
@@ -174,8 +230,8 @@ MESSAGE_TAGS = {
 DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
 
 # SMTP configuration
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_HOST_USER = "wissam.ezzeddine.work@gmail.com"
-EMAIL_HOST_PASSWORD = "dsgm rwuo mkle dnod"
-EMAIL_USE_TLS = True
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
