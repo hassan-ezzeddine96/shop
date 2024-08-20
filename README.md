@@ -53,19 +53,19 @@ First clone the repository from Github and switch to the new directory
 
 ```bash
   git clone https://github.com/hassan-ezzeddine96/shop.git
-  cd {{ project_name }}
+  cd "project_name"
 ```
 Create a Virtual inviroment for your Project and Activate it:
 
 Step1: create virtual environment
 
 ```bash
-  python -m venv {{env-name}}
+  python -m venv "env-name"
 ```
 Step2: Then activate that environment
 
 ```bash
-  {{env-name}}\Scripts\activate
+  "env-name" \Scripts\activate
 ```
 
 Install project dependencies:
