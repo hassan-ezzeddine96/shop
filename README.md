@@ -79,6 +79,20 @@ Then simply apply the migrations:
 ```bash
   python manage.py migrate
 ```
+Make a new SuperUser:
+
+```bash
+  python manage.py createsuperuser
+```
+![superuser](https://ultahost.com/knowledge-base/wp-content/uploads/2024/03/How-to-Create-a-Superuser-in-Django-8.png)
+
+Add few main seeds to the database with this sequence:
+```bash
+  python manage.py loaddata categories.json
+  python manage.py loaddata products.json
+  python manage.py loaddata variations.json
+  python manage.py loaddata gallery.json
+```
 
 Start the server
 
