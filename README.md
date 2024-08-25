@@ -55,7 +55,7 @@ First clone the repository from Github and switch to the new directory
   git clone https://github.com/hassan-ezzeddine96/shop.git
   cd "project_name"
 ```
-Create a Virtual inviroment for your Project and Activate it:
+Create a Virtual environment for your Project and Activate it:
 
 Step1: create virtual environment
 
